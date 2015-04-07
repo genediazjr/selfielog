@@ -1,6 +1,11 @@
 # Selfielog
 Time log through selfies... or groupies, that also works.
 
+[![Build Status](https://travis-ci.org/letsblumit/selfielog.svg)](https://travis-ci.org/letsblumit/selfielog)
+[![Coverage Status](https://coveralls.io/repos/letsblumit/selfielog/badge.svg)](https://coveralls.io/r/letsblumit/selfielog)
+[![Code Climate](https://codeclimate.com/github/letsblumit/selfielog/badges/gpa.svg)](https://codeclimate.com/github/letsblumit/selfielog)
+
+
 ### Maintainers
 * Gene Diaz Jr. <gene@letsblumit.com>
 
