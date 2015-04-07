@@ -1,0 +1,5 @@
+app/static/webcam.min.js
+node_modules
+npm-debug.log
+package.json
+README.md

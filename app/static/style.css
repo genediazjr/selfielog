@@ -1,0 +1,147 @@
+html, body, #newlogmodal {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+
+header form {
+  margin: 20px 0;
+}
+
+footer {
+  margin: 200px auto;
+}
+
+select {
+  visibility: hidden;
+}
+
+button, #upload {
+  font-weight: bold;
+  font-size: 24px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #00aeef;
+}
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+h1 span {
+  color: #0f75bc;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #00aeef;
+  margin: 130px auto -130px;
+  padding: 0;
+}
+
+.selfie {
+  border: 10px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #00aeef;
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.mcselfie {
+  position: relative;
+  vertical-align: middle;
+  top: 20%;
+  z-index: 3;
+}
+
+.camera {
+  position: absolute !important;
+  top: 0px !important;
+  left: -40px !important;
+}
+
+img.camera {
+  width: 320px;
+  height: 240px;
+}
+
+li:nth-child(odd) .selfie {
+  margin-right: -160px;
+}
+
+li:nth-child(even) .selfie {
+  margin-left: -160px;
+}
+
+#timeloglist .selfie {
+  margin-bottom: -60px;
+}
+
+#timeloglist .time {
+  font-weight: bold;
+  position: relative;
+  margin: 140px auto -140px;
+  background-color: #ffffff;
+  width: 80px;
+  z-index: 1;
+}
+
+#timelogs {
+  width: 400px;
+  margin: 0 auto;
+  color: #00aeef;
+}
+
+#newlogmodal {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+#snapshot {
+  visibility: hidden;
+  margin: -260px auto 160px;
+}
+
+#logit {
+  display: none;
+}
+
+#snapit, #logit, #cancel, #upload {
+  display: inline-block;
+  position: relative;
+  top: -150px;
+}
+
+#upload {
+  color: #969798;
+}
+
+#endlog {
+  background-color: #ffffff;
+  font-weight: bold;
+  margin: 115px auto 0;
+  width: 120px;
+}
