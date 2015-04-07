@@ -41,31 +41,15 @@ xmlhttp.onreadystatechange = function () {
   }
 };
 
-function formatAMPM(date) {
-  var hours = date.getHours(),
-    minutes = date.getMinutes(),
-    ampm = hours >= 12 ? 'pm' : 'am';
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  return hours + ':' + minutes + ' ' + ampm;
-}
-
 function getLogDate() {
-  var date = new Date();
-  date.setFullYear(logyear.options[logyear.selectedIndex].text);
-  date.setMonth(logmonth.options[logmonth.selectedIndex].value);
-  date.setDate(logday.options[logday.selectedIndex].text);
-  return date.getUTCFullYear() +
-    '.' + date.getUTCMonth() +
-    '.' + date.getUTCDate();
+  return logyear.options[logyear.selectedIndex].text +
+    '.' + logmonth.options[logmonth.selectedIndex].value +
+    '.' + logday.options[logday.selectedIndex].text;
 }
 
 function addLog(time, url) {
-  var newtime = new Date(),
-    newitem = document.createElement('li');
-  newtime.setTime(time);
-  newitem.innerHTML = logitem.replace('{{time}}', formatAMPM(newtime)).replace('{{url}}', url);
+  var newitem = document.createElement('li');
+  newitem.innerHTML = logitem.replace('{{time}}', time).replace('{{url}}', url);
   timeloglist.appendChild(newitem);
   timeloglist.insertBefore(newitem, timeloglist.firstChild);
 }

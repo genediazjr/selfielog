@@ -52,11 +52,20 @@ router.post('/upload', function (req, res) {
     upload,
     minify,
     newname,
+    timelog,
     curdate = new Date(),
-    datelog = curdate.getUTCFullYear() +
-      '.' + curdate.getUTCMonth() +
-      '.' + curdate.getUTCDate(),
+    datelog = curdate.getFullYear() +
+      '.' + curdate.getMonth() +
+      '.' + curdate.getDate(),
+    hours = curdate.getHours(),
+    minutes = curdate.getMinutes(),
+    ampm = hours >= 12 ? 'pm' : 'am',
     form = new Multiparty.Form({uploadDir: dir});
+
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  timelog = hours + ':' + minutes + ' ' + ampm;
 
   form.parse(req, function (err, fields, uploads) {
     for (u in uploads) {
@@ -97,7 +106,7 @@ router.post('/upload', function (req, res) {
                     log.fatal('delete error', err);
                   }
                   cache.lpush(datelog, JSON.stringify({
-                    timelog: curdate.getTime(),
+                    timelog: timelog,
                     url: data.Location
                   }), function (err) {
                     if (err) {
@@ -108,7 +117,7 @@ router.post('/upload', function (req, res) {
                       log.info(data);
                       res.json({
                         success: true,
-                        timelog: curdate.getTime(),
+                        timelog: timelog,
                         url: data.Location
                       });
                       return;
