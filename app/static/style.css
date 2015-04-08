@@ -106,7 +106,7 @@ li:nth-child(even) .selfie {
 }
 
 #timelogs {
-  width: 400px;
+  max-width: 400px;
   margin: 0 auto;
   color: #00aeef;
 }
@@ -145,3 +145,23 @@ li:nth-child(even) .selfie {
   margin: 115px auto 0;
   width: 120px;
 }
+
+@media (max-width: 760px) {
+  #timeloglist .selfie {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  li:nth-child(odd) .selfie {
+    margin-right: 1px;
+  }
+  li:nth-child(even) .selfie {
+    margin-left: 1px;
+  }
+  li:nth-child(odd) .time {
+    margin-right: 280px !important;
+  }
+  li:nth-child(even) .time {
+    margin-left: 280px !important;
+  }
+}
+
