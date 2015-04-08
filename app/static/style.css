@@ -9,7 +9,7 @@ body {
 }
 
 header form {
-  margin: 20px 0;
+  margin: 0 0 50px;
 }
 
 footer {
@@ -18,6 +18,7 @@ footer {
 
 select {
   visibility: hidden;
+  color: #444444;
 }
 
 button, #upload {
@@ -147,21 +148,18 @@ li:nth-child(even) .selfie {
 }
 
 @media (max-width: 760px) {
-  #timeloglist .selfie {
-    margin-top: 0;
-    margin-bottom: 0;
+  #timeloglist .time {
+    margin-top: 40px;
+    margin-bottom: -10px;
+    z-index: 4;
   }
-  li:nth-child(odd) .selfie {
-    margin-right: 1px;
+
+  li .selfie {
+    margin: 0 auto !important;
   }
-  li:nth-child(even) .selfie {
-    margin-left: 1px;
-  }
-  li:nth-child(odd) .time {
-    margin-right: 280px !important;
-  }
-  li:nth-child(even) .time {
-    margin-left: 280px !important;
+
+  li hr {
+    display: none;
   }
 }
 
