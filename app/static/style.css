@@ -115,7 +115,7 @@ li:nth-child(even) .selfie {
 #newlogmodal {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.8);
-  z-index: 2;
+  z-index: 4;
   top: 0;
   left: 0;
   display: none;
@@ -151,7 +151,7 @@ li:nth-child(even) .selfie {
   #timeloglist .time {
     margin-top: 40px;
     margin-bottom: -10px;
-    z-index: 4;
+    z-index: 3;
   }
 
   li .selfie {
