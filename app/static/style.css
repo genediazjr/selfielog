@@ -121,19 +121,13 @@ li:nth-child(even) .selfie {
   display: none;
 }
 
-#snapshot {
-  visibility: hidden;
-  margin: -260px auto 160px;
+#snapit, #logit, #cancel, #upload {
+  display: inline-block;
+  position: relative;
 }
 
 #logit {
   display: none;
-}
-
-#snapit, #logit, #cancel, #upload {
-  display: inline-block;
-  position: relative;
-  top: -150px;
 }
 
 #upload {

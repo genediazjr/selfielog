@@ -1,7 +1,6 @@
 'use strict';
 
-var image,
-  curdate = new Date(),
+var curdate = new Date(),
   xmlhttp = new XMLHttpRequest(),
   logday = document.getElementById('logday'),
   logmonth = document.getElementById('logmonth'),
@@ -11,7 +10,6 @@ var image,
   cancel = document.getElementById('cancel'),
   upload = document.getElementById('upload'),
   endlog = document.getElementById('endlog'),
-  snapshot = document.getElementById('snapshot'),
   newtimelog = document.getElementById('newtimelog'),
   newlogmodal = document.getElementById('newlogmodal'),
   timeloglist = document.getElementById('timeloglist'),
@@ -65,46 +63,42 @@ function logIt() {
   logit.style.display = 'none';
   cancel.style.display = 'none';
   upload.innerText = 'Uploading...';
-  Webcam.upload(image, '/selfie/upload', function (code, text) {
-    var response = JSON.parse(text);
-    if (response.success) {
-      newlogmodal.style.display = 'none';
-      endlog.innerText = 'end of log';
-      Webcam.reset();
-      addLog(response.timelog, response.url);
-    } else {
-      upload.innerText = 'Upload error';
-      cancel.style.display = 'inline-block';
-      logit.style.display = 'inline-block';
-    }
+  Webcam.snap(function (dataUri) {
+    Webcam.upload(dataUri, '/selfie/upload', function (code, text) {
+      var response = JSON.parse(text);
+      if (response.success) {
+        newlogmodal.style.display = 'none';
+        endlog.innerText = 'end of log';
+        Webcam.reset();
+        addLog(response.timelog, response.url);
+      } else {
+        upload.innerText = 'Upload error';
+        cancel.style.display = 'inline-block';
+        logit.style.display = 'inline-block';
+      }
+    });
   });
 }
 
 function snapIt() {
-  Webcam.snap(function (dataUri) {
-    image = dataUri;
-    upload.innerText = '';
-    snapshot.innerHTML = '<img class="camera" src="' + dataUri + '"/>';
-    snapshot.style.visibility = 'visible';
-    snapit.style.display = 'none';
-    logit.style.display = 'inline-block';
-  });
+  Webcam.freeze();
+  snapit.style.display = 'none';
+  logit.style.display = 'inline-block';
 }
 
 function cancelIt() {
-  if (snapshot.style.visibility === 'hidden') {
+  if (snapit.style.display === 'inline-block') {
     newlogmodal.style.display = 'none';
     Webcam.reset();
   } else {
-    snapshot.style.visibility = 'hidden';
     snapit.style.display = 'inline-block';
     logit.style.display = 'none';
-    upload.innerText = '';
+    Webcam.unfreeze();
   }
+  upload.innerText = '';
 }
 
 function newTimeLog() {
-  snapshot.style.visibility = 'hidden';
   snapit.style.display = 'inline-block';
   logit.style.display = 'none';
   upload.innerText = '';
