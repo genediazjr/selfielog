@@ -1,4 +1,4 @@
-app/static/webcam.min.js
+app/static/vendor
 node_modules
 npm-debug.log
 package.json

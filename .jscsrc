@@ -1,7 +1,7 @@
 {
   "excludeFiles": [
     "node_modules/**",
-    "app/static/webcam.min.js"
+    "app/static/vendor"
   ],
   "requireCurlyBraces": [
     "if",
