@@ -2,10 +2,10 @@ module.exports = {
   ssl: {
     key: '/path/to/your/domain.key',
     cert: '/path/to/your/domain.crt',
-    enabled: true
+    enabled: false
   },
   server: {
-    port: 443,
+    port: 8080,
     root: 'selfie',
     id: 'selfielog'
   },
