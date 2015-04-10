@@ -49,6 +49,7 @@ router.get('/logs', function (req, res) {
 
 router.post('/upload', function (req, res) {
   var u,
+    mime,
     upload,
     minify,
     newname,
@@ -77,7 +78,8 @@ router.post('/upload', function (req, res) {
     if (upload) {
       log.info(upload);
       cache.incr('fileCount', function (err, fileCount) {
-        newname = hasher.encode(fileCount) + '.png';
+        mime = upload.headers['content-type'];
+        newname = hasher.encode(fileCount) + ((mime === 'image/png') ? '.png' : '.gif');
         minify = new Imagemin().src(upload.path);
         minify.use(Imagemin.optipng({optimizationLevel: config.imagemin.optimizationLevel}));
         minify.run(function (err, files) {
@@ -92,7 +94,7 @@ router.post('/upload', function (req, res) {
               ACL: 'public-read',
               Body: files[0].contents,
               Bucket: config.aws.bucket,
-              ContentType: upload.headers['content-type'],
+              ContentType: mime,
               ContentLength: files[0].contents.length
             }, function (err, data) {
               if (err) {
@@ -154,5 +156,3 @@ if (config.ssl.enabled) {
 } else {
   http.createServer(app).listen(config.server.port);
 }
-
-

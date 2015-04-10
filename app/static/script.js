@@ -10,11 +10,18 @@ var curdate = new Date(),
   cancel = document.getElementById('cancel'),
   upload = document.getElementById('upload'),
   endlog = document.getElementById('endlog'),
+  preview = document.getElementById('preview'),
   newtimelog = document.getElementById('newtimelog'),
   newlogmodal = document.getElementById('newlogmodal'),
   timeloglist = document.getElementById('timeloglist'),
+  gifSupport = gifshot.isWebCamGIFSupported(),
   logitem = '<div class="time">{{time}}</div><hr>' +
     '<div class="selfie"><img class="camera" src="{{url}}"></div>';
+
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.webkitGetUserMedia;
 
 logday.onchange = listLogs;
 logmonth.onchange = listLogs;
@@ -64,6 +71,9 @@ function logIt() {
   cancel.style.display = 'none';
   upload.innerText = 'Uploading...';
   Webcam.snap(function (dataUri) {
+    if (gifSupport) {
+      dataUri = preview.src;
+    }
     Webcam.upload(dataUri, '/selfie/upload', function (code, text) {
       var response = JSON.parse(text);
       if (response.success) {
@@ -81,9 +91,33 @@ function logIt() {
 }
 
 function snapIt() {
-  Webcam.freeze();
   snapit.style.display = 'none';
-  logit.style.display = 'inline-block';
+  if (gifSupport) {
+    gifshot.createGIF({
+      gifWidth: 320,
+      gifHeight: 240,
+      video: document.querySelector('video').src,
+      keepCameraOn: true,
+      interval: 0.1,
+      numFrames: 15,
+      progressCallback: function (progress) {
+        upload.innerText = 'Recording ' + Math.round(progress * 100) + '%';
+      }
+    }, function (obj) {
+      if (obj.error) {
+        upload.innerText = 'Recording failed';
+        snapit.style.display = 'inline-block';
+      } else {
+        upload.innerText = '';
+        logit.style.display = 'inline-block';
+        preview.style.visibility = 'visible';
+        preview.src = obj.image;
+      }
+    });
+  } else {
+    Webcam.freeze();
+  }
+  console.log(document.querySelector('video'));
 }
 
 function cancelIt() {
@@ -91,6 +125,7 @@ function cancelIt() {
     newlogmodal.style.display = 'none';
     Webcam.reset();
   } else {
+    preview.style.visibility = 'hidden';
     snapit.style.display = 'inline-block';
     logit.style.display = 'none';
     Webcam.unfreeze();
@@ -99,6 +134,7 @@ function cancelIt() {
 }
 
 function newTimeLog() {
+  preview.style.visibility = 'hidden';
   snapit.style.display = 'inline-block';
   logit.style.display = 'none';
   upload.innerText = '';

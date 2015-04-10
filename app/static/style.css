@@ -121,6 +121,11 @@ li:nth-child(even) .selfie {
   display: none;
 }
 
+#preview {
+  visibility: hidden;
+  z-index: 5;
+}
+
 #snapit, #logit, #cancel, #upload {
   display: inline-block;
   position: relative;
