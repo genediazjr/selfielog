@@ -10,9 +10,9 @@ Time log through selfies... or groupies, that also works.
 * Gene Diaz Jr. <gene@letsblumit.com>
 
 ### Technologies
-* [gifshot]https://github.com/yahoo/gifshot - gif image
+* [gifshot](https://github.com/yahoo/gifshot) - gif image
 * [webcamjs](http://pixlcore.com/read/WebcamJS) - image capture
-* [multiparty](https://github.com/andrewrk/node-multiparty/) - image upload
+* [multiparty](https://github.com/andrewrk/node-multiparty) - image upload
 * [imagemin](https://github.com/imagemin/imagemin) - image minify
 * [hashids](http://hashids.org/) - image names
 * [aws S3](http://aws.amazon.com/s3/) - image storage
