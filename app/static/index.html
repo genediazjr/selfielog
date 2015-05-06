@@ -17,63 +17,9 @@
       <h1>Selfie<span>Log</span></h1>
 
       <form>
-        <select id="logday">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-          <option>6</option>
-          <option>7</option>
-          <option>8</option>
-          <option>9</option>
-          <option>10</option>
-          <option>11</option>
-          <option>12</option>
-          <option>13</option>
-          <option>14</option>
-          <option>15</option>
-          <option>16</option>
-          <option>17</option>
-          <option>18</option>
-          <option>19</option>
-          <option>20</option>
-          <option>21</option>
-          <option>22</option>
-          <option>23</option>
-          <option>24</option>
-          <option>25</option>
-          <option>26</option>
-          <option>27</option>
-          <option>28</option>
-          <option>29</option>
-          <option>30</option>
-          <option>31</option>
-        </select>
-
-        <select id="logmonth">
-          <option value="0">January</option>
-          <option value="1">February</option>
-          <option value="2">March</option>
-          <option value="3">April</option>
-          <option value="4">May</option>
-          <option value="5">June</option>
-          <option value="6">July</option>
-          <option value="7">August</option>
-          <option value="8">September</option>
-          <option value="9">October</option>
-          <option value="10">November</option>
-          <option value="11">December</option>
-        </select>
-
-        <select id="logyear">
-          <option>2014</option>
-          <option>2015</option>
-          <option>2016</option>
-        </select>
-      </form>
-
-      <form>
+        <input id="picker">
+        <br>
+        <br>
         <button id="newtimelog">Take a Selfie</button>
       </form>
     </header>
@@ -101,6 +47,7 @@
     </div>
   </section>
 
+  <script src="/vendor/datepickr.min.js"></script>
   <script src="/vendor/gifshot.min.js"></script>
   <script src="/vendor/webcam.min.js"></script>
   <script src="/script.js?ver=0.2.0"></script>

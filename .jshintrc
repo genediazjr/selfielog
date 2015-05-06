@@ -1,5 +1,5 @@
 {
-  "predef": ["JSON", "Webcam", "gifshot"],
+  "predef": ["JSON", "Webcam", "gifshot", "datepickr"],
   "indent": 2,
   "quotmark": "single",
   "plusplus": false,

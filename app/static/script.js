@@ -1,31 +1,31 @@
 'use strict';
 
-var curdate = new Date(),
+var previousDate,
+  currentDate = new Date(),
   xmlhttp = new XMLHttpRequest(),
-  logday = document.getElementById('logday'),
-  logmonth = document.getElementById('logmonth'),
-  logyear = document.getElementById('logyear'),
   logit = document.getElementById('logit'),
   snapit = document.getElementById('snapit'),
   cancel = document.getElementById('cancel'),
   upload = document.getElementById('upload'),
   endlog = document.getElementById('endlog'),
+  picker = document.getElementById('picker'),
   preview = document.getElementById('preview'),
   newtimelog = document.getElementById('newtimelog'),
   newlogmodal = document.getElementById('newlogmodal'),
   timeloglist = document.getElementById('timeloglist'),
   gifSupport = gifshot.isWebCamGIFSupported(),
   logitem = '<div class="time">{{time}}</div><hr>' +
-    '<div class="selfie"><img class="camera" src="{{url}}"></div>';
+    '<div class="selfie"><img class="camera" src="{{url}}"></div>',
+  monthNames = ['January', 'February', 'March',
+    'April', 'May', 'June', 'July',
+    'August', 'September', 'October',
+    'November', 'December'];
 
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.webkitGetUserMedia;
 
-logday.onchange = listLogs;
-logmonth.onchange = listLogs;
-logyear.onchange = listLogs;
 logit.onclick = logIt;
 snapit.onclick = snapIt;
 cancel.onclick = cancelIt;
@@ -47,9 +47,10 @@ xmlhttp.onreadystatechange = function () {
 };
 
 function getLogDate() {
-  return logyear.options[logyear.selectedIndex].text +
-    '.' + logmonth.options[logmonth.selectedIndex].value +
-    '.' + logday.options[logday.selectedIndex].text;
+  var selectedDate = new Date(picker.value);
+  return selectedDate.getFullYear() +
+    '.' + selectedDate.getMonth() +
+    '.' + selectedDate.getDate();
 }
 
 function addLog(time, url) {
@@ -160,20 +161,22 @@ Webcam.on('error', function (err) {
 });
 
 window.onload = function () {
-  logday.selectedIndex = curdate.getDate() - 1;
-  logmonth.selectedIndex = curdate.getMonth();
-  for (var i = 0; i < logyear.options.length; i++) {
-    if (logyear.options[i].text === String(curdate.getFullYear())) {
-      logyear.selectedIndex = i;
-      break;
-    }
-  }
-  logday.style.visibility = 'visible';
-  logmonth.style.visibility = 'visible';
-  logyear.style.visibility = 'visible';
+  picker.value = monthNames[currentDate.getMonth()] +
+    ' ' + currentDate.getDate() +
+    ', ' + currentDate.getFullYear();
+  previousDate = picker.value;
   listLogs();
 };
 
 window.onsubmit = function () {
   return false;
 };
+
+picker.onblur = function () {
+  if (picker.value !== previousDate) {
+    previousDate = picker.value;
+    listLogs();
+  }
+};
+
+datepickr(picker);
