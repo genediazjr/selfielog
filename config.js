@@ -25,8 +25,8 @@ module.exports = {
     length: 4
   },
   redis: {
-    port: 0,
-    host: 'your.redis.host'
+    port: 6379,
+    host: 'localhost'
   },
   logger: {
     info: true,
