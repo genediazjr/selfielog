@@ -126,6 +126,13 @@ li:nth-child(even) .selfie {
   display: none;
 }
 
+video {
+  width: 640px;
+  height: 480px;
+  transform-origin: 0px 0px 0px;
+  transform: scaleX(0.5) scaleY(0.5);
+}
+
 #preview {
   visibility: hidden;
   z-index: 5;

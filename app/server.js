@@ -11,6 +11,7 @@ var fs = require('fs'),
   Multiparty = require('multiparty'),
   bodyParser = require('body-parser'),
   AWS = require('aws-sdk'),
+  BinaryServer = require('binaryjs').BinaryServer,
 
   config = require('../config'),
   Logger = require('./util/logger'),
@@ -24,7 +25,8 @@ var fs = require('fs'),
   s3 = new AWS.S3({
     accessKeyId: config.aws.access,
     secretAccessKey: config.aws.secret
-  });
+  }),
+  clients = {}, bs;
 
 fs.mkdir(dir, function (err) {
   if (err) {
@@ -143,6 +145,34 @@ app.use(express['static'](__dirname + '/static'));
 app.use('/' + config.server.root, router);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+bs = new BinaryServer({ port: 5000 });
+
+bs.on('connection', function (client) {
+  clients[client.id] = {client: client};
+  client.on('stream', function (data, meta) {
+    var received = JSON.parse(meta);
+    data.on('data', function (data) {
+      for (var c in clients) {
+        if(clients.hasOwnProperty(c)) {
+          if(c.toString() !== client.id.toString()) {
+            received['id'] = client.id.toString();
+            clients[c]['client'].send(data, JSON.stringify(received));
+          }
+        }
+      }
+    });
+  });
+
+  client.on('close', function() {
+    delete clients[client.id];
+    for (var c in clients) {
+      if(clients.hasOwnProperty(c)) {
+        clients[c]['client'].send("Disconnected", JSON.stringify({id: client.id, action: 'disconnect'}));
+      }
+    }
+  })
+});
 
 if (config.ssl.enabled) {
   http.createServer(function (req, res) {

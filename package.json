@@ -25,7 +25,8 @@
     "imagemin": "3.1.x",
     "multiparty": "4.1.x",
     "body-parser": "1.12.x",
-    "json-stringify-safe": "5.0.x"
+    "json-stringify-safe": "5.0.x",
+    "binaryjs": "0.2.x"
   },
   "devDependencies": {
     "jscs": "1.12.x",
